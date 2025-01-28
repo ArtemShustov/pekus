@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Core.Interactions {
 	public class Interaction: MonoBehaviour {
+		[SerializeField] private string _text = "Interaction";
 		[Inject] private PopupCanvas _popupCanvas;
 		private InteractionPopup _popup;
 
@@ -16,12 +17,12 @@ namespace Core.Interactions {
 			if (_popup != null) {
 				return;
 			}
-			_popup = new InteractionPopup(transform, name);
+			_popup = new InteractionPopup(transform, _text);
 			var viewModel = new InteractionPopupViewModel(_popup);
 			_popupCanvas.Show(viewModel);
 		}
 
-		public void Run(Character character) {
+		public virtual void Run(Character character) {
 			_popup?.Trigger();
 			Triggered?.Invoke(character);
 		}
@@ -29,15 +30,15 @@ namespace Core.Interactions {
 			_popup?.SetSelected(isSelected);
 		}
 
-		private void OnEnable() {
+		protected virtual void OnEnable() {
 			if (!_popupCanvas) {
 				return;
 			}
-			_popup = new InteractionPopup(transform, name);
+			_popup = new InteractionPopup(transform, _text);
 			var viewModel = new InteractionPopupViewModel(_popup);
 			_popupCanvas.Show(viewModel);
 		}
-		private void OnDisable() {
+		protected virtual  void OnDisable() {
 			_popup?.Dispose();
 		}
 	}

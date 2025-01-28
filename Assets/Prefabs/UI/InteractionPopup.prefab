@@ -52,6 +52,7 @@ MonoBehaviour:
   _selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _unselectedColor: {r: 1, g: 1, b: 1, a: 1}
   _showAnimationDuration: 0.1
+  _triggeredAnimationDuration: 0.2
   _label: {fileID: 1098060717644008223}
 --- !u!1 &4133202064381965884
 GameObject:

@@ -1,0 +1,18 @@
+{
+    "name": "Core.Debugging.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5e85b70b5940b4945acddc8d9bec2f5a"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

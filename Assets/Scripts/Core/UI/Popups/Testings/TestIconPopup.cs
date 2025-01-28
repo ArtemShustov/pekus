@@ -25,5 +25,9 @@ namespace Core.UI.Popups.Testings {
 			var viewModel = new IconPopupViewModel(_popup);
 			_popupCanvas.Show(viewModel);
 		}
+		
+		private void OnDisable() {
+			_popup?.Dispose();
+		}
 	}
 }

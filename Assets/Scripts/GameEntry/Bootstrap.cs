@@ -1,5 +1,6 @@
 using Core;
 using Core.Characters;
+using Core.Debugging;
 using Cysharp.Threading.Tasks;
 using Game.Gameplay;
 using Game.UI;
@@ -8,37 +9,38 @@ using UnityEngine.SceneManagement;
 
 namespace Game.GameEntry {
 	public class Bootstrap: MonoBehaviour {
-		[SerializeField] private PlayerCharacter _playerPrefab;
 		[SerializeField] private LoadingScreen _loadingScreen;
+		[SerializeField] private LoggerReference _logger;
 		
-		[SceneReference] private const string NextSceneName = "TestWorld";
+		[SceneReference] private const string NextSceneName = "World";
 		private GameContext _context; 
 		
 		public async UniTaskVoid Run(GameContext context) {
 			_context = context;
 			
-			Debug.Log("Bootstrap started.");
+			_logger.Log("Bootstrap started");
 			DontDestroyOnLoad(_loadingScreen.gameObject);
 			context.Container.RegisterInstance(_loadingScreen);
 			
-			Debug.Log("Loading next scene.");
+			_logger.Log("Loading world");
 			await SceneManager.LoadSceneAsync(NextSceneName);
-			var world = InitWorldScene();
+			
+			_logger.Log("World init");
+			var world = await InitWorldScene();
 			await Awaitable.NextFrameAsync();
 			await _loadingScreen.HideAsync();
 			world.PostInit();
 			
 			Debug.Log("Bootstrap finished.");
 		}
-		private WorldEntryPoint InitWorldScene() {
+		private async UniTask<WorldEntryPoint> InitWorldScene() {
 			var worldEntryPoint = FindFirstObjectByType<WorldEntryPoint>();
 			if (worldEntryPoint == null) {
-				Debug.LogError("World entry point not found.");
+				Debug.LogError("World entry point not found."); 
 				return null;
 			}
 			
-			var player = Instantiate(_playerPrefab);
-			worldEntryPoint.Run(_context, player);
+			await worldEntryPoint.Run(_context);
 
 			return worldEntryPoint;
 		}

@@ -35,12 +35,11 @@ namespace Core.UI.Popups.Variants {
 		}
 
 		private void OnTriggered() {
-			_label.text = "Triggered";
+			_label.transform.localScale = Vector3.one;;
 			_label.transform.DOPunchScale(new Vector3(0, 1.5f, 0), _triggeredAnimationDuration, 20);
 		}
 		private void OnSelectionChanged(bool isSelected) {
 			_label.color = isSelected ? _selectedColor : _unselectedColor;
-			_label.text = isSelected ? "Selected" : "Not selected";
 		}
 		protected override void OnUpdatePosition() {
 			var position = Camera.WorldToScreenPoint(ViewModel.Target.position + ViewModel.Offset);

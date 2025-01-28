@@ -33,10 +33,10 @@ namespace Game.Gameplay {
 			_cinemachine.Follow = target;
 			_cinemachine.LookAt = target;
 			_zoomLevel = _maxZoom;
-			ResetCamera();
+			UpdateFollow();
 		}
-		public void ResetCamera() {
-			_cinemachineFollow.FollowOffset = _positions[_currentMode] * _zoomLevel;
+		public void OnTargetObjectWarped(Vector3 delta) {
+			_cinemachine.OnTargetObjectWarped(_cinemachine.Target.TrackingTarget, delta);
 		}
 		public void EnableInput() {
 			_rotateLeft.Enable();
@@ -51,18 +51,21 @@ namespace Game.Gameplay {
 
 		private void RotateRight(InputAction.CallbackContext obj) {
 			_currentMode = (_currentMode + 1) % _positions.Length;
-			ResetCamera();
+			UpdateFollow();
 		}
 		private void RotateLeft(InputAction.CallbackContext obj) {
 			_currentMode = (_currentMode - 1 + _positions.Length) % _positions.Length;
-			ResetCamera();
+			UpdateFollow();
 		}
 		private void UpdateZoom() {
 			float zoomInput = _zoomAxis.ReadValue<float>();
 			if (Mathf.Abs(zoomInput) > 0.01f) {
 				_zoomLevel = Mathf.Clamp(_zoomLevel - zoomInput * _zoomSpeed * Time.deltaTime, _minZoom, _maxZoom);
-				ResetCamera();
+				UpdateFollow();
 			}
+		}
+		private void UpdateFollow() {
+			_cinemachineFollow.FollowOffset = _positions[_currentMode] * _zoomLevel;
 		}
 		
 		private void OnEnable() {

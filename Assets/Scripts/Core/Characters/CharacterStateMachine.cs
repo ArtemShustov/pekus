@@ -36,6 +36,9 @@ namespace Core.Characters {
 			_currentState = state;
 			_currentState?.OnEnter();
 		}
+		public void SetInput(ICharacterInput input) {
+			_input.Change(input);
+		}
 		public void SetApplyRootMotion(bool value) {
 			_applyRootMotion = value;
 		}

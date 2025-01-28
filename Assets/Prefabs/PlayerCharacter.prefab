@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1864692518542860949}
-  - component: {fileID: 7403548977630489304}
+  - component: {fileID: 2421078782807405159}
+  - component: {fileID: 4148293724711822475}
   - component: {fileID: 1581646691669441704}
-  - component: {fileID: 5169907860541396452}
   - component: {fileID: 4752509700459147086}
   - component: {fileID: 4136658709798781201}
-  - component: {fileID: 4197658363233916973}
+  - component: {fileID: 1580985551019645597}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -41,7 +41,7 @@ Transform:
   - {fileID: 7288771865361236458}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7403548977630489304
+--- !u!114 &2421078782807405159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,26 +50,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2882598293646318236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 260c55143eac4d4eb1c02803b8a309d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 70d109b22ed14a32989816608b6626ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _input: {fileID: 5169907860541396452}
---- !u!114 &1581646691669441704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882598293646318236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b6b0f2084044edad6e24a1999c998b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _applyRootMotion: 1
-  _controller: {fileID: 4752509700459147086}
-  _model: {fileID: 3334795601014757485}
---- !u!114 &5169907860541396452
+  _stateMachine: {fileID: 1581646691669441704}
+  _input: {fileID: 4148293724711822475}
+--- !u!114 &4148293724711822475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,7 +124,47 @@ MonoBehaviour:
       m_Action: Move
       m_Flags: 8
     m_Flags: 0
+  _useAction:
+    m_Name: Use
+    m_Type: 1
+    m_ExpectedControlType: 
+    m_Id: 95ade56f-23e8-46f6-ba6a-884ab390d4e2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 4dc7f8f0-bad3-4352-8f3d-044b80487a74
+      m_Path: <Gamepad>/buttonWest
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Use
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 83989cc3-3b1e-41db-a8fa-7b8334ced7f8
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Use
+      m_Flags: 0
+    m_Flags: 0
   _camera: {fileID: 0}
+--- !u!114 &1581646691669441704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882598293646318236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b6b0f2084044edad6e24a1999c998b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _applyRootMotion: 1
+  _controller: {fileID: 4752509700459147086}
+  _model: {fileID: 3334795601014757485}
 --- !u!143 &4752509700459147086
 CharacterController:
   m_ObjectHideFlags: 0
@@ -177,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _machine: {fileID: 1581646691669441704}
---- !u!114 &4197658363233916973
+--- !u!114 &1580985551019645597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,31 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047c75e4cab1454b9eec94b45a841e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button:
-    m_Name: Button
-    m_Type: 1
-    m_ExpectedControlType: 
-    m_Id: 0935df3b-3c0f-43a2-ade9-c4124c4dbcaf
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 6d66e174-5f5c-4fb4-bfde-0eb90b82023a
-      m_Path: <Gamepad>/buttonWest
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Button
-      m_Flags: 0
-    - m_Name: 
-      m_Id: 162552b0-b4e4-499c-873c-8868a85e26fd
-      m_Path: <Keyboard>/space
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Button
-      m_Flags: 0
-    m_Flags: 0
+  _character: {fileID: 2421078782807405159}
+  _input: {fileID: 4148293724711822475}
 --- !u!1 &4166342378431023460
 GameObject:
   m_ObjectHideFlags: 0

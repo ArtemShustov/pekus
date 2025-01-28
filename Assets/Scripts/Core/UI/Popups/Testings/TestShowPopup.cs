@@ -17,12 +17,12 @@ namespace Core.UI.Popups.Testings {
 		private void OnTriggerEnter(Collider other) {
 			if (_popupCanvas == null) return;
 			
-			if (other.TryGetComponent<PlayerCharacter>(out var player)) {
+			if (other.TryGetComponent<Character>(out var character)) {
 				_counter++;
 				_popup?.Dispose();
 				
 				_popup = new DialogPopup(
-					_selfTarget ? transform : player.transform,
+					_selfTarget ? transform : character.transform,
 					_offset,
 					string.Format(_text, _counter)
 				);
@@ -30,6 +30,10 @@ namespace Core.UI.Popups.Testings {
 				var viewModel = new DialogPopupViewModel(_popup);
 				_popupCanvas.Show(viewModel);
 			}
+		}
+
+		private void OnDisable() {
+			_popup?.Dispose();
 		}
 	}
 }

@@ -3,22 +3,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Core.Interactions {
-	public class Interactor: MonoBehaviour {
+	public class PlayerInteractor: MonoBehaviour {
 		[SerializeField] private Character _character;
-		[SerializeField] private InputAction _button = new InputAction("Button", InputActionType.Button, "<Gamepad>/buttonWest");
+		[SerializeField] private PlayerCharacterInput _input;
 		private Interaction _current;
-
-		private void OnButton(InputAction.CallbackContext obj) {
-			_current?.Run(_character);
+		
+		private void OnUse(InputActionPhase phase) {
+			if (phase == InputActionPhase.Performed && _current) {
+				_current?.Run(_character);
+			}
 		}
-		private void OnEnable() {
-			_button.Enable();
-			_button.performed += OnButton;
-		}
-		private void OnDisable() {
-			_button.performed -= OnButton;
-			_button.Disable();
-		}
+		
 		private void OnTriggerEnter(Collider other) {
 			_current?.SetSelected(false);
 			if (other.TryGetComponent<Interaction>(out var interaction)) {
@@ -33,6 +28,13 @@ namespace Core.Interactions {
 				_current?.SetSelected(false);
 				_current = null;
 			}
+		}
+		
+		private void OnEnable() {
+			_input.Use += OnUse;
+		}
+		private void OnDisable() {
+			_input.Use -= OnUse;
 		}
 		private void OnDestroy() {
 			_current?.SetSelected(false);

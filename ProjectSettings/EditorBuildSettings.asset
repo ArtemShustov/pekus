@@ -9,8 +9,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Bootstrap.unity
     guid: cdfb42308e5c95b4c9fd05939c94c16a
   - enabled: 1
-    path: Assets/Scenes/TestWorld.unity
+    path: Assets/Scenes/World.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/TestLocation.unity
+    guid: db555b10b8c8c7f4985525b955715d7f
+  - enabled: 1
+    path: Assets/Scenes/TestHouse.unity
+    guid: 140dbbdb80a4d6a4896b8bd21f1413c0
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

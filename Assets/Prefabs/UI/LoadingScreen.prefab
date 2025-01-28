@@ -346,4 +346,4 @@ MonoBehaviour:
   _leftSide: {fileID: 7436218168916663777}
   _rightSide: {fileID: 3074696614297201203}
   _canvas: {fileID: 3688850668328889676}
-  _animationDuration: 1
+  _animationDuration: 0.7
