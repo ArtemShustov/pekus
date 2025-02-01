@@ -26,6 +26,7 @@ namespace Game.GameEntry {
 			await SceneManager.LoadSceneAsync(NextSceneName);
 			
 			_logger.Log("World init");
+			await Awaitable.NextFrameAsync();
 			var world = await InitWorldScene();
 			await Awaitable.NextFrameAsync();
 			await _loadingScreen.HideAsync();

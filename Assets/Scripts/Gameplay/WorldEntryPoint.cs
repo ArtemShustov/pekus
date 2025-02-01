@@ -17,7 +17,7 @@ namespace Game.Gameplay {
 		[SerializeField] private string _locationName = "TestLocation";
 		[SerializeField] private PlayerCharacter _playerPrefab;
 		
-		private PlayerCharacter _player;
+		private Player _player;
 		
 		public async UniTask Run(GameContext gameContext) {
 			// DI
@@ -27,11 +27,14 @@ namespace Game.Gameplay {
 			container.RegisterInstance(_camera);
 			_root.SetContainer(container);
 			// Init
-			_player = Instantiate(_playerPrefab);
-			_player.Inject(container);
-			_player.DisableInput();
-			_camera.SetTarget(_player.transform);
-			_root.SetPlayer(_player);
+			var character = Instantiate(_playerPrefab);
+			character.Inject(container);
+			character.DisableInput();
+			_camera.SetTarget(character.transform);
+			_root.SetPlayer(character);
+			
+			_player = new Player(_root);
+			_player.SetCharacter(character);
 			// Load location
 			await _root.ChangeLocationAsync(_locationName);
 		}

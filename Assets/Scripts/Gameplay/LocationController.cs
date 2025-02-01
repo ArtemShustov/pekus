@@ -4,6 +4,7 @@ using Core.DependencyInjection;
 using Cysharp.Threading.Tasks;
 using Game.UI;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.SceneManagement;
 
 namespace Game.Gameplay {
@@ -26,15 +27,14 @@ namespace Game.Gameplay {
 			if (_currentScene.isLoaded) {
 				await SceneManager.UnloadSceneAsync(_currentScene);
 			}
+			
+			_logger.Log("Scene loading");
 			await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 			_currentScene = SceneManager.GetSceneByName(sceneName);
 
-			var locationRoot = FindFirstObjectByType<LocationRoot>();
-			if (!locationRoot) {
-				_logger.LogError("Could not find location root");
-			}
-			_currentScene.Inject(_container);
-			await locationRoot.Enter();
+			_logger.Log("Scene init");
+			var locationRoot = await InitLocation();
+			SceneManager.SetActiveScene(_currentScene);
 			
 			_logger.Log($"Location '{sceneName}' loaded");
 
@@ -47,18 +47,32 @@ namespace Game.Gameplay {
 			
 			var locationRoot = await ChangeLocationImmediateAsync(sceneName);
 			
-			if (!locationRoot.TryGetSpawnPoint(spawnPoint, out var spawn)) {
+			if (locationRoot.TryGetSpawnPoint(spawnPoint, out var spawn)) {
+				var lastPosition = _player.transform.position;
+				_player.transform.SetPositionAndRotation(spawn.transform.position, spawn.transform.rotation);
+				_camera.OnTargetObjectWarped(_player.transform.position - lastPosition);
+				Physics.SyncTransforms();
+			} else {
 				_logger.LogError($"Could not find spawn point '{spawnPoint}' on '{sceneName}'");
-				return;
-			} 
-			var lastPosition = _player.transform.position;
-			_player.transform.SetPositionAndRotation(spawn.transform.position, spawn.transform.rotation);
-			_camera.OnTargetObjectWarped(_player.transform.position - lastPosition);
-			Physics.SyncTransforms();
-			
+			}
+
 			await _loadingScreen.HideAsync();
 			_player.EnableInput();
 			_camera.EnableInput();
+		}
+		
+		private async UniTask<LocationRoot> InitLocation() {
+			Profiler.BeginSample("Location initialization");
+			
+			var locationRoot = FindFirstObjectByType<LocationRoot>();
+			if (!locationRoot) {
+				_logger.LogError("Could not find location root");
+			}
+			_currentScene.Inject(_container);
+			await locationRoot.Enter();
+			
+			Profiler.EndSample();
+			return locationRoot;
 		}
 	}
 }

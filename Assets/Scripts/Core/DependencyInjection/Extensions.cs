@@ -12,11 +12,13 @@ namespace Core.DependencyInjection {
 		public static void Inject(this MonoBehaviour monoBehaviour, DIContainer container) {
 			Injecting.Inject(monoBehaviour, container);
 		}
+		public static void Inject(this object obj, DIContainer container) {
+			Injecting.Inject(obj, container);
+		}
 		public static void Inject(this Scene scene, DIContainer container) {
 			var roots = scene.GetRootGameObjects();
 			foreach (var root in roots) {
-				root.Inject(container);
-				Injecting.InjectForChildren(root, container);
+				Injecting.InjectTree(root, container);
 			}
 		}
 	}

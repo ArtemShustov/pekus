@@ -9,6 +9,9 @@ namespace Game.Gameplay {
 		[Header("Components")]
 		[SerializeField] private LocationController _locationController;
 		[SerializeField] private LoggerReference _logger;
+		[SerializeField] private WorldClock _clock;
+		
+		public WorldClock Clock => _clock;
 		
 		public void SetContainer(DIContainer container) {
 			_locationController.SetContainer(container);
