@@ -843,7 +843,7 @@ MonoBehaviour:
   _camera: {fileID: 1468580141}
   _root: {fileID: 1607106771}
   _locationName: TestLocation
-  _playerPrefab: {fileID: 2421078782807405159, guid: 44b5856984e03334fbe84b86533da74a, type: 3}
+  _playerPrefab: {fileID: 3321322675448276279, guid: c5d23a52ac852f145966ceb63c263c7e, type: 3}
 --- !u!114 &1607106773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,9 +1017,9 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1696845664}
-  - {fileID: 1468580140}
-  - {fileID: 1607106770}
   - {fileID: 1383880726}
   - {fileID: 537199390}
   - {fileID: 1697679667}
+  - {fileID: 1696845664}
+  - {fileID: 1468580140}
+  - {fileID: 1607106770}
