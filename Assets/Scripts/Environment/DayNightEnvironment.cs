@@ -1,8 +1,8 @@
 using Core.DependencyInjection;
-using Game.Gameplay;
+using Game.World;
 using UnityEngine;
 
-namespace Game.WorldFeatures {
+namespace Game.Environment {
 	public class DayNightEnvironment : MonoBehaviour {
 		[Header("Settings")]
 		[SerializeField] private AnimationCurve _ambientIntensity;
@@ -10,7 +10,7 @@ namespace Game.WorldFeatures {
 		[Header("Components")]
 		[SerializeField] private Light _directionalLight;
 		
-		[Inject] private World _world; 
+		[Inject] private WorldRoot _world; 
 		private Material _skyboxMaterial;
 		private float _time;
 

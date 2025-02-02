@@ -4946,11 +4946,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1031671016266318667}
   - component: {fileID: 3321322675448276279}
+  - component: {fileID: 3561422321146170509}
   - component: {fileID: 5298287186917214975}
   - component: {fileID: 7898008544369983157}
   - component: {fileID: 808521594862805553}
   - component: {fileID: 6939176221042060075}
-  - component: {fileID: 3561422321146170509}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -4990,6 +4990,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stateMachine: {fileID: 7898008544369983157}
+  _input: {fileID: 5298287186917214975}
+  _interactor: {fileID: 3561422321146170509}
+--- !u!114 &3561422321146170509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196922804932827436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047c75e4cab1454b9eec94b45a841e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _input: {fileID: 5298287186917214975}
 --- !u!114 &5298287186917214975
 MonoBehaviour:
@@ -5139,20 +5153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _machine: {fileID: 7898008544369983157}
---- !u!114 &3561422321146170509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9196922804932827436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 047c75e4cab1454b9eec94b45a841e8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _character: {fileID: 3321322675448276279}
-  _input: {fileID: 5298287186917214975}
 --- !u!1001 &8609863503979739752
 PrefabInstance:
   m_ObjectHideFlags: 0

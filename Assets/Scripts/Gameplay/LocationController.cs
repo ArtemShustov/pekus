@@ -1,4 +1,4 @@
-using Core.Characters;
+using Game.Players;
 using Core.Debugging;
 using Core.DependencyInjection;
 using Cysharp.Threading.Tasks;
@@ -11,16 +11,11 @@ namespace Game.Gameplay {
 	public class LocationController: MonoBehaviour {
 		[SerializeField] private LoggerReference _logger;
 		[Inject] private LoadingScreen _loadingScreen;
-		[Inject] private GameCamera _camera;
-		private PlayerCharacter _player;
 		private DIContainer _container;
 		private Scene _currentScene;
 
 		public void SetContainer(DIContainer container) {
 			_container = container;
-		}
-		public void SetPlayer(PlayerCharacter player) {
-			_player = player;
 		}
 		
 		public async UniTask<LocationRoot> ChangeLocationImmediateAsync(string sceneName) {
@@ -40,25 +35,20 @@ namespace Game.Gameplay {
 
 			return locationRoot;
 		}
-		public async UniTask ChangeLocationAsync(string sceneName, string spawnPoint) {
-			_player.DisableInput();
-			_camera.DisableInput();
+		public async UniTask ChangeLocationAsync(Player player, string sceneName, string spawnPoint) {
+			player.DisableInput();
 			await _loadingScreen.ShowAsync();
 			
 			var locationRoot = await ChangeLocationImmediateAsync(sceneName);
 			
 			if (locationRoot.TryGetSpawnPoint(spawnPoint, out var spawn)) {
-				var lastPosition = _player.transform.position;
-				_player.transform.SetPositionAndRotation(spawn.transform.position, spawn.transform.rotation);
-				_camera.OnTargetObjectWarped(_player.transform.position - lastPosition);
-				Physics.SyncTransforms();
+				player.Teleport(spawn.transform.position, spawn.transform.rotation);
 			} else {
 				_logger.LogError($"Could not find spawn point '{spawnPoint}' on '{sceneName}'");
 			}
 
 			await _loadingScreen.HideAsync();
-			_player.EnableInput();
-			_camera.EnableInput();
+			player.EnableInput();
 		}
 		
 		private async UniTask<LocationRoot> InitLocation() {

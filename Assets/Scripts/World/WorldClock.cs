@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Game.Gameplay {
+namespace Game.World {
 	public class WorldClock: MonoBehaviour {
 		[Range(0f, 1f)]
 		[SerializeField] private float _nightThreshold = 0.7f;

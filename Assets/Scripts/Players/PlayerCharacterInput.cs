@@ -1,8 +1,9 @@
 using System;
+using Core.Characters;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Core.Characters {
+namespace Game.Players {
 	public class PlayerCharacterInput: MonoBehaviour, ICharacterInput {
 		[SerializeField] private InputAction _moveAction = new InputAction("Move", InputActionType.Value, "<Gamepad>/leftStick");
 		[SerializeField] private InputAction _useAction = new InputAction("Use", InputActionType.Button, "<Gamepad>/buttonWest");

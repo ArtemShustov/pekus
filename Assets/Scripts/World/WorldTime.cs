@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Game.Gameplay {
+namespace Game.World {
 	public struct WorldTime: IComparable<WorldTime>, IEquatable<WorldTime> {
 		public int Day { get; private set; }
 		public int Time { get; private set; }

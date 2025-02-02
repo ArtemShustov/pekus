@@ -1,11 +1,11 @@
 using Core.DependencyInjection;
-using Game.Gameplay;
+using Game.World;
 using UnityEngine;
 
-namespace Game.WorldFeatures {
+namespace Game.Environment {
 	public class NightLight: MonoBehaviour {
 		[SerializeField] private Light _light;
-		[Inject] private World _world;
+		[Inject] private WorldRoot _world;
 
 		private void Start() {
 			_world.Clock.TimeChanged += OnTimeChanged;

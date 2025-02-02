@@ -1,11 +1,12 @@
-using Core.Characters;
 using Core.Debugging;
 using Core.DependencyInjection;
 using Cysharp.Threading.Tasks;
+using Game.Gameplay;
+using Game.Players;
 using UnityEngine;
 
-namespace Game.Gameplay {
-	public class World: MonoBehaviour {
+namespace Game.World {
+	public class WorldRoot: MonoBehaviour {
 		[Header("Components")]
 		[SerializeField] private LocationController _locationController;
 		[SerializeField] private LoggerReference _logger;
@@ -17,15 +18,12 @@ namespace Game.Gameplay {
 			_locationController.SetContainer(container);
 			_locationController.Inject(container);
 		}
-		public void SetPlayer(PlayerCharacter player) {
-			_locationController.SetPlayer(player);
-		}
 
 		public async UniTask ChangeLocationAsync(string location) {
 			await _locationController.ChangeLocationImmediateAsync(location);
 		}
-		public async UniTask ChangeLocationAsync(string location, string spawnPoint) {
-			await _locationController.ChangeLocationAsync(location, spawnPoint);
+		public async UniTask ChangeLocationAsync(Player player, string location, string spawnPoint) {
+			await _locationController.ChangeLocationAsync(player, location, spawnPoint);
 		}
 	}
 }
