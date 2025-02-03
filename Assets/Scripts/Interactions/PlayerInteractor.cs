@@ -1,16 +1,12 @@
-using Game.Players;
+using Game.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Game.Interactions {
 	public class PlayerInteractor: MonoBehaviour {
 		[SerializeField] private PlayerCharacterInput _input;
+		[SerializeField] private PlayerCharacter _player;
 		private Interaction _selected;
-		private Player _player;
-
-		public void SetPlayer(Player player) {
-			_player = player;
-		}
 		
 		private void OnUse(InputActionPhase phase) {
 			if (phase == InputActionPhase.Performed && _selected) {

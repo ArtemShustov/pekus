@@ -3,7 +3,7 @@ using Core.DependencyInjection;
 using Core.UI.Popups;
 using Core.UI.Popups.Variants;
 using Game.Gameplay;
-using Game.Players;
+using Game.Player;
 using UnityEngine;
 
 namespace Game.Interactions {
@@ -12,7 +12,7 @@ namespace Game.Interactions {
 		[Inject] private PopupCanvas _popupCanvas;
 		private InteractionPopup _popup;
 
-		public event Action<Player> Triggered;
+		public event Action<PlayerCharacter> Triggered;
 
 		private void Start() {
 			if (_popup != null) {
@@ -23,7 +23,7 @@ namespace Game.Interactions {
 			_popupCanvas.Show(viewModel);
 		}
 
-		public virtual void Run(Player player) {
+		public virtual void Run(PlayerCharacter player) {
 			_popup?.Trigger();
 			Triggered?.Invoke(player);
 		}

@@ -2,7 +2,7 @@ using Core.Debugging;
 using Core.DependencyInjection;
 using Cysharp.Threading.Tasks;
 using Game.Gameplay;
-using Game.Players;
+using Game.Player;
 using UnityEngine;
 
 namespace Game.World {
@@ -22,7 +22,7 @@ namespace Game.World {
 		public async UniTask ChangeLocationAsync(string location) {
 			await _locationController.ChangeLocationImmediateAsync(location);
 		}
-		public async UniTask ChangeLocationAsync(Player player, string location, string spawnPoint) {
+		public async UniTask ChangeLocationAsync(PlayerCharacter player, string location, string spawnPoint) {
 			await _locationController.ChangeLocationAsync(player, location, spawnPoint);
 		}
 	}

@@ -1,7 +1,7 @@
-using Game.Players;
 using Core.Debugging;
 using Core.DependencyInjection;
 using Cysharp.Threading.Tasks;
+using Game.Player;
 using Game.UI;
 using UnityEngine;
 using UnityEngine.Profiling;
@@ -35,7 +35,7 @@ namespace Game.Gameplay {
 
 			return locationRoot;
 		}
-		public async UniTask ChangeLocationAsync(Player player, string sceneName, string spawnPoint) {
+		public async UniTask ChangeLocationAsync(PlayerCharacter player, string sceneName, string spawnPoint) {
 			player.DisableInput();
 			await _loadingScreen.ShowAsync();
 			

@@ -5005,6 +5005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 5298287186917214975}
+  _player: {fileID: 3321322675448276279}
 --- !u!114 &5298287186917214975
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using Core.DependencyInjection;
 using Core.UI.Popups;
 using Cysharp.Threading.Tasks;
 using Game.GameEntry;
-using Game.Players;
+using Game.Player;
 using Game.World;
 using UnityEngine;
 
@@ -18,7 +18,7 @@ namespace Game.Gameplay {
 		[SerializeField] private string _locationName = "TestLocation";
 		[SerializeField] private PlayerCharacter _playerPrefab;
 		
-		private Player _player;
+		private PlayerCharacter _player;
 		
 		public async UniTask Run(GameContext gameContext) {
 			// DI
@@ -28,7 +28,7 @@ namespace Game.Gameplay {
 			container.RegisterInstance(_camera);
 			_root.SetContainer(container);
 			// Init
-			_player = CreatePlayer(container, _camera);
+			_player = CreatePlayerCharacter(container, new PlayerData(), _camera);
 			// Load location
 			await _root.ChangeLocationAsync(_locationName);
 		}
@@ -36,15 +36,13 @@ namespace Game.Gameplay {
 			_player.EnableInput();
 		}
 
-		private Player CreatePlayer(DIContainer container, GameCamera gameCamera) {
-			var player = new Player();
-			player.SetCamera(gameCamera);
-			
+		private PlayerCharacter CreatePlayerCharacter(DIContainer container, PlayerData player, GameCamera gameCamera) {
 			var character = Instantiate(_playerPrefab);
 			character.Inject(container);
-			player.SetCharacter(character);
+			character.SetCamera(gameCamera);
+			character.SetPlayer(player);
 			
-			return player;
+			return character;
 		}
 	}
 }

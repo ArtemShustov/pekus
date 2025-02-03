@@ -1,30 +1,32 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Game.Gameplay {
+namespace Game.Player {
 	public class GameCamera: MonoBehaviour {
 		[Header("Settings")]
 		[SerializeField] private float _minZoom = 5f;
 		[SerializeField] private float _maxZoom = 10f;
 		[SerializeField] private float _zoomSpeed = 2f;
-		[SerializeField] private InputAction _rotateLeft = new InputAction("RotateLeft", InputActionType.Button, "<Gamepad>/leftShoulder");
-		[SerializeField] private InputAction _rotateRight = new InputAction("RotateRight", InputActionType.Button, "<Gamepad>/rightShoulder");
-		[SerializeField] private InputAction _zoomAxis = new InputAction("Zoom", InputActionType.PassThrough);
 		[Header("Components")]
 		[SerializeField] private Camera _camera;
 		[SerializeField] private CinemachineCamera _cinemachine;
 		[SerializeField] private CinemachineFollow _cinemachineFollow;
-
+		
 		private readonly Vector3[] _positions = {
 			new Vector3(0, 1, -1), // Forward
 			new Vector3(1, 1, 0), // Right
 			new Vector3(0, 1, 1), // Back
 			new Vector3(-1, 1, 0) // Left
 		};
+		private PlayerInputActions _input;
 		private int _currentMode;
 		private float _zoomLevel = 1f;
 
+		private void Awake() {
+			_input = new PlayerInputActions();
+		}
 		private void Update() {
 			UpdateZoom();
 		}
@@ -39,14 +41,10 @@ namespace Game.Gameplay {
 			_cinemachine.OnTargetObjectWarped(_cinemachine.Target.TrackingTarget, delta);
 		}
 		public void EnableInput() {
-			_rotateLeft.Enable();
-			_rotateRight.Enable();
-			_zoomAxis.Enable();
+			_input.Camera.Enable();
 		}
 		public void DisableInput() {
-			_rotateLeft.Disable();
-			_rotateRight.Disable();
-			_zoomAxis.Disable();
+			_input.Camera.Disable();
 		}
 
 		private void RotateRight(InputAction.CallbackContext obj) {
@@ -58,7 +56,7 @@ namespace Game.Gameplay {
 			UpdateFollow();
 		}
 		private void UpdateZoom() {
-			float zoomInput = _zoomAxis.ReadValue<float>();
+			float zoomInput = _input.Camera.Zoom.ReadValue<float>();
 			if (Mathf.Abs(zoomInput) > 0.01f) {
 				_zoomLevel = Mathf.Clamp(_zoomLevel - zoomInput * _zoomSpeed * Time.deltaTime, _minZoom, _maxZoom);
 				UpdateFollow();
@@ -69,12 +67,12 @@ namespace Game.Gameplay {
 		}
 		
 		private void OnEnable() {
-			_rotateLeft.performed += RotateLeft;
-			_rotateRight.performed += RotateRight;
+			_input.Camera.RotateRight.performed += RotateRight;
+			_input.Camera.RotateLeft.performed += RotateLeft;
 		}
 		private void OnDisable() {
-			_rotateLeft.performed -= RotateLeft;
-			_rotateRight.performed -= RotateRight;
+			_input.Camera.RotateRight.performed -= RotateRight;
+			_input.Camera.RotateLeft.performed -= RotateLeft;
 		}
 	}
 }
